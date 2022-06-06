@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-// JSONLogMiddleware logs a gin HTTP requests in JSON format, with some additional custom key/values
-func JSONLogMiddleware() gin.HandlerFunc {
+// LogMiddleware logs a gin HTTP requests in JSON format, with some additional custom key/values
+func LogMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		log := logger.WithContext(c.Request.Context())
 		// Start timer

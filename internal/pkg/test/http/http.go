@@ -2,6 +2,7 @@ package http
 
 import (
 	"encoding/json"
+	jsonpkg "github.com/romangurevitch/golang-concurrency/internal/pkg/json"
 	"io"
 	"io/ioutil"
 	"strings"
@@ -30,5 +31,5 @@ func ToJSONPayloadReader(obj interface{}) io.Reader {
 		return nil
 	}
 
-	return strings.NewReader(ToJSONString(obj))
+	return strings.NewReader(jsonpkg.ToJSONString(obj))
 }

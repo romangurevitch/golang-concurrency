@@ -8,7 +8,7 @@ import (
 
 func NewServer() rest.Server {
 	r := gin.New()
-	r.Use(middleware.JSONLogMiddleware())
+	r.Use(middleware.LogMiddleware())
 	r.Use(gin.Recovery())
 
 	aServer := &accountServer{
