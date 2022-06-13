@@ -1,11 +1,14 @@
-# Golang Concurrency Example
-
-## Table of contents
-
-### Example 1:
-
-```go
 package concurrency
+
+import (
+	"fmt"
+	"github.com/romangurevitch/golang-concurrency/internal/concurrency/counter"
+	"golang.org/x/net/context"
+	"os"
+	"os/signal"
+	"sync"
+	"syscall"
+)
 
 // UnexpectedResult what did you expect?
 func UnexpectedResult() int {
@@ -19,23 +22,6 @@ func UnexpectedResult() int {
 
 	return c.Counter
 }
-```
-
-```bash
- go test ./internal/concurrency -v -run=UnexpectedResult 
-```
-```bash
- go test ./internal/concurrency -v -run=UnexpectedResult -race 
-```
-
-
-
-|                                                Correctness                                                 |                                                 Consistent                                                 |                                                Completeness                                                |
-|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|
-| <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/no.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/no.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/no.png" width="40"/> |
-
-```go
-package concurrency
 
 // IncorrectResult ohh no!
 func IncorrectResult() int {
@@ -183,14 +169,7 @@ func WorkingUntilContextIsDone(ctx context.Context) int {
 
 	return c.Counter
 }
-```
 
-<img src="https://openclipart.org/image/2400px/svg_to_png/28580/kablam-Number-Animals-1.png" width="200"/> <img src="https://openclipart.org/download/71101/two.svg" width="300"/>
-
-| Solarized dark | Solarized Ocean |
-|:--------------:|:---------------:|
-|                |                 |
-
-```bash
-go test ./...
-```
+func inlinePrint(result int) {
+	fmt.Print("\033[G\033[K", result)
+}
