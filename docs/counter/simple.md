@@ -1,3 +1,6 @@
+# Simple counter
+
+```go
 package counter
 
 type SimpleCounter struct {
@@ -11,3 +14,4 @@ func (s *SimpleCounter) Inc() {
 func (s *SimpleCounter) Count() int {
 	return s.counter
 }
+```

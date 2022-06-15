@@ -1,6 +1,7 @@
-package counter
+# Safe counter:
 
-import "sync"
+```go
+package counter
 
 type SafeCounter struct {
 	counter int
@@ -21,3 +22,4 @@ func (s *SafeCounter) Count() int {
 
 	return s.counter
 }
+```

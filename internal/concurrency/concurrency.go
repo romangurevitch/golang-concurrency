@@ -2,48 +2,64 @@ package concurrency
 
 import (
 	"fmt"
-	"github.com/romangurevitch/golang-concurrency/internal/concurrency/counter"
-	"golang.org/x/net/context"
 	"os"
 	"os/signal"
 	"sync"
 	"syscall"
+
+	"github.com/romangurevitch/golang-concurrency/internal/concurrency/counter"
 )
 
 // UnexpectedResult what did you expect?
 func UnexpectedResult() int {
-	c := &counter.Simple{}
+	c := &counter.SimpleCounter{}
 
 	go func() {
 		for i := 0; i < 1000; i++ {
-			c.Counter++
+			c.Inc()
 		}
 	}()
 
-	return c.Counter
+	return c.Count()
 }
 
-// IncorrectResult ohh no!
-func IncorrectResult() int {
-	c := &counter.Simple{}
+// UnexpectedResultFix is it fixed?
+func UnexpectedResultFix() int {
+	c := &counter.SimpleCounter{}
+	wg := sync.WaitGroup{}
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for i := 0; i < 1000; i++ {
+			c.Inc()
+		}
+	}()
+
+	wg.Wait()
+	return c.Count()
+}
+
+// LetsMakeASmallChange ohh no!
+func LetsMakeASmallChange() int {
+	c := &counter.SimpleCounter{}
 	wg := sync.WaitGroup{}
 
 	for i := 0; i < 1000; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-
-			c.Counter++
+			c.Inc()
 		}()
 	}
 
 	wg.Wait()
-	return c.Counter
+	return c.Count()
 }
 
 // FinallySomethingWorksAsExpected but is it?
 func FinallySomethingWorksAsExpected() int {
-	c := &counter.Simple{}
+	c := &counter.SimpleCounter{}
 	wg := sync.WaitGroup{}
 	lock := sync.Mutex{}
 
@@ -53,65 +69,71 @@ func FinallySomethingWorksAsExpected() int {
 			defer wg.Done()
 
 			lock.Lock()
-			c.Counter++
+			c.Inc()
 			lock.Unlock()
 		}()
 	}
 
 	wg.Wait()
-	return c.Counter
+	return c.Count()
+}
+
+// FinallySomethingWorksAsExpectedSafeCounter but is it?
+func FinallySomethingWorksAsExpectedSafeCounter() int {
+	c := &counter.SafeCounter{}
+	wg := sync.WaitGroup{}
+
+	for i := 0; i < 1000; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			c.Inc()
+		}()
+	}
+
+	wg.Wait()
+	return c.Count()
 }
 
 // WorkingEndlessly is that a good idea?
 func WorkingEndlessly() int {
-	c := &counter.Simple{}
+	c := &counter.SafeCounter{}
 	wg := sync.WaitGroup{}
-	lock := sync.Mutex{}
 
 	wg.Add(1)
 	go func() {
 		for {
-			lock.Lock()
-			c.Counter++
-			lock.Unlock()
+			c.Inc()
 		}
 	}()
 
 	wg.Wait()
-	return c.Counter
+	return c.Count()
 }
 
 // WorkingEndlesslyWithAWayOut is it good enough though?
 func WorkingEndlesslyWithAWayOut() int {
-	lock := sync.Mutex{}
-	c := &counter.Simple{}
+	c := &counter.SafeCounter{}
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
 		for {
-			lock.Lock()
-			c.Counter++
-			lock.Unlock()
+			c.Inc()
 		}
 	}()
 
 	fmt.Println("Waiting...")
 	<-sigs
 
-	lock.Lock()
-	result := c.Counter
-	lock.Unlock()
-
-	return result
+	return c.Count()
 }
 
 // WorkingEndlesslyWithAGoodWayOut yes?
 func WorkingEndlesslyWithAGoodWayOut() int {
-	lock := sync.Mutex{}
 	wg := sync.WaitGroup{}
-	c := &counter.Simple{}
+	c := &counter.SafeCounter{}
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
@@ -125,10 +147,8 @@ func WorkingEndlesslyWithAGoodWayOut() int {
 				fmt.Println("\nSignal received, shutting down!")
 				return
 			default:
-				lock.Lock()
-				c.Counter++
-				inlinePrint(c.Counter)
-				lock.Unlock()
+				c.Inc()
+				inlinePrint(c.Count())
 			}
 
 		}
@@ -137,37 +157,7 @@ func WorkingEndlesslyWithAGoodWayOut() int {
 	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
 
-	return c.Counter
-}
-
-// WorkingUntilContextIsDone yes?
-func WorkingUntilContextIsDone(ctx context.Context) int {
-	lock := sync.Mutex{}
-	wg := sync.WaitGroup{}
-	c := &counter.Simple{}
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for {
-			select {
-			case <-ctx.Done():
-				fmt.Println("\nContext is done, shutting down!")
-				return
-			default:
-				lock.Lock()
-				c.Counter++
-				inlinePrint(c.Counter)
-				lock.Unlock()
-			}
-
-		}
-	}()
-
-	fmt.Println("Working as long as the context is not done")
-	wg.Wait()
-
-	return c.Counter
+	return c.Count()
 }
 
 func inlinePrint(result int) {
