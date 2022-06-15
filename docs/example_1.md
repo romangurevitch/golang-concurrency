@@ -1,4 +1,4 @@
-# Let's start with a simple example
+# 1. Let's start with a simple example
 
 [Simple counter](counter/simple.md)
 

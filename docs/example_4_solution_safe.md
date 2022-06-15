@@ -1,8 +1,7 @@
-# Finally, something works as expected
+# 4. Finally, something works as expected - using safe counter
 
-[Simple counter](counter/simple.md)
-
-[Safe counter](counter/safe.md)
+* [Simple counter](counter/simple.md)
+* [Safe counter](counter/safe.md)
 
 ```go
 package concurrency

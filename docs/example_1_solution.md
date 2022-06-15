@@ -1,12 +1,6 @@
-# Let's start with a simple example
+# 1. Let's start with a simple example
 
-```go
-package counter
-
-type SimpleCounter struct {
-	Counter int
-}
-```
+[Simple counter](counter/simple.md)
 
 ```go
 package concurrency

@@ -1,12 +1,6 @@
-# Let's make a small change :) 
+# 3. Let's make a small change :) 
 
-```go
-package counter
-
-type SimpleCounter struct {
-	Counter int
-}
-```
+[Simple counter](counter/simple.md)
 
 ```go
 package concurrency

@@ -1,8 +1,7 @@
-# Finally, something works as expected
+# 4. Finally, something works as expected
 
-[Simple counter](counter/simple.md)
-
-[Safe counter](counter/safe.md)
+* [Simple counter](counter/simple.md)
+* [Safe counter](counter/safe.md)
 
 ```go
 package concurrency
@@ -43,4 +42,4 @@ func FinallySomethingWorksAsExpected() int {
 |:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|
 | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> |
 
-[Next example](example_5.md)
+[Next example](example_4_solution_safe.md)

@@ -1,4 +1,4 @@
-# Non-stopping go routines
+# 5. Non-stopping go routines
 
 [Safe counter](counter/safe.md)
 

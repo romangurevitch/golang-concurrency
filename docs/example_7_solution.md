@@ -1,4 +1,4 @@
-# # Let's handle shutdown gracefully, for real this time!
+# 7. Let's handle shutdown gracefully, for real this time!
 
 [Safe counter](counter/safe.md)
 
