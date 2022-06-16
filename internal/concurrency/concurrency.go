@@ -95,15 +95,15 @@ func FinallySomethingWorksAsExpectedSafeCounter() int {
 	return c.Count()
 }
 
-// WorkingEndlessly is that a good idea?
-func WorkingEndlessly() int {
+// NonStoppingGoRoutine is that a good idea?
+func NonStoppingGoRoutine() int {
 	c := &counter.SafeCounter{}
 	wg := sync.WaitGroup{}
 
 	wg.Add(1)
 	go func() {
 		for {
-			c.Inc()
+			inlinePrint(c.Inc())
 		}
 	}()
 
@@ -111,29 +111,34 @@ func WorkingEndlessly() int {
 	return c.Count()
 }
 
-// WorkingEndlesslyWithAWayOut is it good enough though?
-func WorkingEndlesslyWithAWayOut() int {
+// NonStoppingGoRoutineWithShutdown is it good enough though?
+func NonStoppingGoRoutineWithShutdown() int {
 	c := &counter.SafeCounter{}
+	gracefulShutdown := false
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
+		defer func() { gracefulShutdown = true }()
+
 		for {
-			c.Inc()
+			inlinePrint(c.Inc())
 		}
 	}()
 
-	fmt.Println("Waiting...")
+	fmt.Println("Working, press ^C to stop")
 	<-sigs
 
+	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
 	return c.Count()
 }
 
-// WorkingEndlesslyWithAGoodWayOut yes?
-func WorkingEndlesslyWithAGoodWayOut() int {
+// NonStoppingGoRoutineCorrectShutdown yes?
+func NonStoppingGoRoutineCorrectShutdown() int {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
+	gracefulShutdown := false
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
@@ -141,14 +146,14 @@ func WorkingEndlesslyWithAGoodWayOut() int {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+		defer func() { gracefulShutdown = true }()
+
 		for {
 			select {
 			case <-sigs:
-				fmt.Println("\nSignal received, shutting down!")
 				return
 			default:
-				c.Inc()
-				inlinePrint(c.Count())
+				inlinePrint(c.Inc())
 			}
 
 		}
@@ -157,6 +162,7 @@ func WorkingEndlesslyWithAGoodWayOut() int {
 	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
 
+	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
 	return c.Count()
 }
 

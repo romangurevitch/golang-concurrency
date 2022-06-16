@@ -20,11 +20,11 @@ func UnexpectedResult() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="UnexpectedResult$" 
+ go test ../internal/concurrency -v -count=1 -run="UnexpectedResult$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="UnexpectedResult$" -race 
+ go test ../internal/concurrency -v -count=1 -run="UnexpectedResult$" -race 
 ```
 
 ## Result?

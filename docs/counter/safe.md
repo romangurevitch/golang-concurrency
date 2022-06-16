@@ -9,11 +9,12 @@ type SafeCounter struct {
 	lock sync.RWMutex
 }
 
-func (s *SafeCounter) Inc() {
+func (s *SafeCounter) Inc() int {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	s.counter++
+	return s.counter
 }
 
 func (s *SafeCounter) Count() int {

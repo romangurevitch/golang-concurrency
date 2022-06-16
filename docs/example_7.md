@@ -5,10 +5,11 @@
 ```go
 package concurrency
 
-// WorkingEndlesslyWithAGoodWayOut yes?
-func WorkingEndlesslyWithAGoodWayOut() int {
+// NonStoppingGoRoutineCorrectShutdown yes?
+func NonStoppingGoRoutineCorrectShutdown() int {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
+	gracefulShutdown := false
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
@@ -16,14 +17,14 @@ func WorkingEndlesslyWithAGoodWayOut() int {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+		defer func() { gracefulShutdown = true }()
+
 		for {
 			select {
 			case <-sigs:
-				fmt.Println("\nSignal received, shutting down!")
 				return
 			default:
-				c.Inc()
-				inlinePrint(c.Count())
+				inlinePrint(c.Inc())
 			}
 
 		}
@@ -32,16 +33,17 @@ func WorkingEndlesslyWithAGoodWayOut() int {
 	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
 
+	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
 	return c.Count()
 }
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="WorkingEndlesslyWithAGoodWayOut$" 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="WorkingEndlesslyWithAGoodWayOut$" -race 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" -race 
 ```
 
 ## Result?

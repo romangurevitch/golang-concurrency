@@ -25,11 +25,11 @@ func FinallySomethingWorksAsExpectedSafeCounter(count int) int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="FinallySomethingWorksAsExpectedSafeCounter$" 
+ go test ../internal/concurrency -v -count=1 -run="FinallySomethingWorksAsExpectedSafeCounter$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="FinallySomethingWorksAsExpectedSafeCounter$" -race 
+ go test ../internal/concurrency -v -count=1 -run="FinallySomethingWorksAsExpectedSafeCounter$" -race 
 ```
 
 ## Result?

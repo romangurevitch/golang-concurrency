@@ -54,9 +54,9 @@ func TestFinallySomethingWorksAsExpectedSafeCounter(t *testing.T) {
 }
 
 // Bad endless go func example, terminating the run will terminate without printing the results.
-func TestGoFuncEndless(t *testing.T) {
+func TestNonStoppingGoRoutine(t *testing.T) {
 	printLine()
-	result := WorkingEndlessly()
+	result := NonStoppingGoRoutine()
 	fmt.Println(prefix, "Result:", result)
 	fmt.Println(prefix, "Test finished...")
 	printLine()
@@ -64,9 +64,9 @@ func TestGoFuncEndless(t *testing.T) {
 
 // Using OS signals to catch termination signal to print out simpleCounter results.
 // Good example how to make sure resources are closed when terminating running processes.
-func TestGoFuncEndlessWithChannel(t *testing.T) {
+func TestNonStoppingGoRoutineWithShutdown(t *testing.T) {
 	printLine()
-	result := WorkingEndlesslyWithAWayOut()
+	result := NonStoppingGoRoutineWithShutdown()
 	fmt.Println(prefix, "Result:", result)
 	fmt.Println(prefix, "Test finished...")
 	printLine()
@@ -74,9 +74,9 @@ func TestGoFuncEndlessWithChannel(t *testing.T) {
 
 // Using OS signals to catch termination signal to print out simpleCounter results.
 // Good example how to make sure resources are closed when terminating running processes.
-func TestWorkingEndlesslyWithAGoodWayOut(t *testing.T) {
+func TestNonStoppingGoRoutineCorrectShutdown(t *testing.T) {
 	printLine()
-	result := WorkingEndlesslyWithAGoodWayOut()
+	result := NonStoppingGoRoutineCorrectShutdown()
 	fmt.Println(prefix, "Result:", result)
 	fmt.Println(prefix, "Test finished...")
 	printLine()

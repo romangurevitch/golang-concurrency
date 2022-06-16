@@ -5,32 +5,36 @@
 ```go
 package concurrency
 
-// WorkingEndlesslyWithAWayOut is it good enough though?
-func WorkingEndlesslyWithAWayOut() int {
+// NonStoppingGoRoutineWithShutdown is it good enough though?
+func NonStoppingGoRoutineWithShutdown() int {
 	c := &counter.SafeCounter{}
+	gracefulShutdown := false
 
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
+		defer func() { gracefulShutdown = true }()
+
 		for {
-			c.Inc()
+			inlinePrint(c.Inc())
 		}
 	}()
 
-	fmt.Println("Waiting...")
+	fmt.Println("Working, press ^C to stop")
 	<-sigs
 
+	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
 	return c.Count()
 }
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="WorkingEndlesslyWithAWayOut$" 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineWithShutdown$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="WorkingEndlesslyWithAWayOut$" -race 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineWithShutdown$" -race 
 ```
 
 ## Result?

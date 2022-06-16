@@ -5,15 +5,15 @@
 ```go
 package concurrency
 
-// WorkingEndlessly is that a good idea?
-func WorkingEndlessly() int {
+// NonStoppingGoRoutine is that a good idea?
+func NonStoppingGoRoutine() int {
 	c := &counter.SafeCounter{}
 	wg := sync.WaitGroup{}
 
 	wg.Add(1)
 	go func() {
 		for {
-			c.Inc()
+			inlinePrint(c.Inc())
 		}
 	}()
 
@@ -23,11 +23,11 @@ func WorkingEndlessly() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="WorkingEndlessly$" 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutine$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="WorkingEndlessly$" -race 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutine$" -race 
 ```
 
 ## Result?

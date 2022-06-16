@@ -29,11 +29,11 @@ func FinallySomethingWorksAsExpected() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="FinallySomethingWorksAsExpected$" 
+ go test ../internal/concurrency -v -count=1 -run="FinallySomethingWorksAsExpected$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="FinallySomethingWorksAsExpected$" -race 
+ go test ../internal/concurrency -v -count=1 -run="FinallySomethingWorksAsExpected$" -race 
 ```
 
 ## Result?

@@ -25,11 +25,11 @@ func LetsMakeASmallChange() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="LetsMakeASmallChange$" 
+ go test ../internal/concurrency -v -count=1 -run="LetsMakeASmallChange$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -run="LetsMakeASmallChange$" -race 
+ go test ../internal/concurrency -v -count=1 -run="LetsMakeASmallChange$" -race 
 ```
 
 ## Result?
