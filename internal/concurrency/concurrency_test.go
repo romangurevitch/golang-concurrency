@@ -82,6 +82,16 @@ func TestNonStoppingGoRoutineCorrectShutdown(t *testing.T) {
 	printLine()
 }
 
+// Using OS signals to catch termination signal to print out simpleCounter results.
+// Bonus example, tiny change big impact!
+func TestNonStoppingGoRoutineCorrectShutdownBonus(t *testing.T) {
+	printLine()
+	result := NonStoppingGoRoutineCorrectShutdownBonus()
+	fmt.Println(prefix, "Result:", result)
+	fmt.Println(prefix, "Test finished...")
+	printLine()
+}
+
 func printLine() {
 	fmt.Println(strings.Repeat("-", 50))
 }

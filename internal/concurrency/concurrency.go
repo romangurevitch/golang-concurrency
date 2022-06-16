@@ -166,6 +166,38 @@ func NonStoppingGoRoutineCorrectShutdown() int {
 	return c.Count()
 }
 
+// NonStoppingGoRoutineCorrectShutdownBonus tiny change?
+func NonStoppingGoRoutineCorrectShutdownBonus() int {
+	wg := sync.WaitGroup{}
+	c := &counter.SafeCounter{}
+	gracefulShutdown := false
+
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+
+	wg.Add(1)
+	go func() {
+		defer func() { gracefulShutdown = true }() // <<< Tiny change
+		defer wg.Done()                            // <<< Lets swap the defer commands
+
+		for {
+			select {
+			case <-sigs:
+				return
+			default:
+				inlinePrint(c.Inc())
+			}
+
+		}
+	}()
+
+	fmt.Println("Working, press ^C to stop")
+	wg.Wait()
+
+	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
+	return c.Count()
+}
+
 func inlinePrint(result int) {
 	fmt.Print("\033[G\033[K", result)
 }

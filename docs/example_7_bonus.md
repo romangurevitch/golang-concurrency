@@ -1,12 +1,12 @@
-# 7. Let's handle shutdown gracefully, for real this time!
+# 7. Bonus question
 
 [Safe counter](counter/safe.md)
 
 ```go
 package concurrency
 
-// NonStoppingGoRoutineCorrectShutdown yes?
-func NonStoppingGoRoutineCorrectShutdown() int {
+// NonStoppingGoRoutineCorrectShutdownBonus tiny change?
+func NonStoppingGoRoutineCorrectShutdownBonus() int {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
@@ -16,8 +16,8 @@ func NonStoppingGoRoutineCorrectShutdown() int {
 
 	wg.Add(1)
 	go func() {
-		defer wg.Done()
-		defer func() { gracefulShutdown = true }()
+		defer func() { gracefulShutdown = true }() // <<< Tiny change
+		defer wg.Done()                            // <<< Lets swap the defer commands
 
 		for {
 			select {
@@ -39,11 +39,11 @@ func NonStoppingGoRoutineCorrectShutdown() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdownBonus$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" -race 
+ go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdownBonus$" -race 
 ```
 
 ## Result?
@@ -52,4 +52,4 @@ func NonStoppingGoRoutineCorrectShutdown() int {
 |:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|
 | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> |
 
-[Bonus question](example_7_bonus.md)
+[Back to README.md](../README.md)
