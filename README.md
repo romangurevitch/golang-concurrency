@@ -4,7 +4,7 @@
 
 ### Introduction
 
-* [Insert slides link here](https://docs.google.com/presentation/d/15ISZJnHh9RyCUDrX7oQGyeCdz_GqjfrVj41PkMB4vIU/edit?usp=sharing)
+* [Slides](https://docs.google.com/presentation/d/15ISZJnHh9RyCUDrX7oQGyeCdz_GqjfrVj41PkMB4vIU/edit?usp=sharing)
 
 ### Counter
 
