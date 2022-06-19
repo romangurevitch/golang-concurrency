@@ -36,10 +36,27 @@ func FinallySomethingWorksAsExpected() int {
  go test ../internal/concurrency -v -count=1 -run="FinallySomethingWorksAsExpected$" -race 
 ```
 
-## Result?
+<table>
+<thead> 
+  <tr> 
+    <th colspan="3">Results?</th> 
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Correct result?</td>
+    <td><img height="40" src="images/yes.png" width="40" alt="?"/></td>
+    <td rowspan="3"><img height="320" src="https://media.giphy.com/media/l3vRfwrddpKT9ywIU/giphy.gif" width="568" alt="?"/></td>
+  </tr> 
+  <tr>
+    <td>Race conditions?</td>
+    <td><img height="40" src="images/yes.png" width="40" alt="?"/></td> 
+  </tr>
+  <tr>
+    <td>Error handling and gracefully shutdown?</td>
+    <td><img height="40" src="images/question.svg" width="40" alt="?"/></td>
+  </tr>
+</tbody>
+</table> 
 
-|                                                 Correctness                                                 |                                                 Consistency                                                 |                                                Completeness                                                 |
-|:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|
-| <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> |
-
-[Next example](example_4_solution_safe.md)
+[Use safe counter](example_4_solution_safe.md)

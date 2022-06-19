@@ -27,10 +27,27 @@ func UnexpectedResult() int {
  go test ../internal/concurrency -v -count=1 -run="UnexpectedResult$" -race 
 ```
 
-## Result?
-
-|                                                Correctness                                                 |                                                Consistency                                                 |                                                Completeness                                                |
-|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|
-| <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/no.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/no.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/no.png" width="40"/> |
+<table>
+<thead> 
+  <tr> 
+    <th colspan="3">Results?</th> 
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Correct result?</td>
+    <td><img height="40" src="images/no.png" width="40" alt="?"/></td>
+    <td rowspan="3"><img height="360" src="https://media.giphy.com/media/l9TnPq7MBol6E9nn3N/giphy.gif" width="360" alt="?"/></td>
+  </tr> 
+  <tr>
+    <td>Race conditions?</td>
+    <td><img height="40" src="images/no.png" width="40" alt="?"/></td> 
+  </tr>
+  <tr>
+    <td>Error handling and gracefully shutdown?</td>
+    <td><img height="40" src="images/question.svg" width="40" alt="?"/></td>
+  </tr>
+</tbody>
+</table> 
 
 [Next example](example_2.md)

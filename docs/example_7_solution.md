@@ -46,10 +46,27 @@ func NonStoppingGoRoutineCorrectShutdown() int {
  go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" -race 
 ```
 
-## Result?
-
-|                                                 Correctness                                                 |                                                 Consistency                                                 |                                                Completeness                                                 |
-|:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------:|
-| <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> | <img height="40" src="/Users/RGurevitch/workspace/talk/golang-concurrency/docs/images/yes.png" width="40"/> |
+<table>
+<thead> 
+  <tr> 
+    <th colspan="3">Results?</th> 
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Correct result?</td>
+    <td><img height="40" src="images/yes.png" width="40" alt="?"/></td>
+    <td rowspan="3"><img height="320" src="https://media.giphy.com/media/3oxRmD9a5pLTOOLigM/giphy.gif" width="320" alt="?"/></td>
+  </tr> 
+  <tr>
+    <td>Race conditions?</td>
+    <td><img height="40" src="images/yes.png" width="40" alt="?"/></td> 
+  </tr>
+  <tr>
+    <td>Error handling and gracefully shutdown?</td>
+    <td><img height="40" src="images/yes.png" width="40" alt="?"/></td>
+  </tr>
+</tbody>
+</table> 
 
 [Bonus question](example_7_bonus.md)

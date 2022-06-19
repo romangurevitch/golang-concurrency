@@ -16,3 +16,5 @@ func (s *SimpleCounter) Count() int {
 	return s.counter
 }
 ```
+
+<img height="360" src="https://media.giphy.com/media/APqEbxBsVlkWSuFpth/giphy.gif" width="389" alt="?"/>

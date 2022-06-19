@@ -24,3 +24,5 @@ func (s *SafeCounter) Count() int {
 	return s.counter
 }
 ```
+
+<img height="360" src="https://media.giphy.com/media/YRVtOABNoLQu6tcTgs/giphy.gif" width="541" alt="?"/>
