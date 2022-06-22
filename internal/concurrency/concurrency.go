@@ -102,6 +102,7 @@ func NonStoppingGoRoutine() int {
 
 	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		for {
 			inlinePrint(c.Inc())
 		}

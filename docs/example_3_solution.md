@@ -45,7 +45,7 @@ func LetsMakeASmallChange() int {
     <td rowspan="3"><img height="360" src="https://media.giphy.com/media/lp1oGHyJHmSoqw0cld/giphy.gif" width="432" alt="?"/></td>
   </tr> 
   <tr>
-    <td>Race conditions?</td>
+    <td>No race conditions?</td>
     <td><img height="40" src="images/no.png" width="40" alt="?"/></td> 
   </tr>
   <tr>

@@ -1,6 +1,7 @@
 # 1. Let's start with a simple example
 
-[Simple counter](counter/simple.md)
+* [Race detection](race/race.md)
+* [Simple counter](counter/simple.md)
 
 ```go 
 package concurrency
@@ -40,7 +41,7 @@ func UnexpectedResult() int {
     <td rowspan="3"><img height="360" src="https://media.giphy.com/media/xT0xeuOy2Fcl9vDGiA/giphy.gif" width="360" alt="?"/></td>
   </tr> 
   <tr>
-    <td>Race conditions?</td>
+    <td>No race conditions?</td>
     <td><img height="40" src="images/question.svg" width="40" alt="?"/></td> 
   </tr>
   <tr>

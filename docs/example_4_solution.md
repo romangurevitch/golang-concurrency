@@ -49,7 +49,7 @@ func FinallySomethingWorksAsExpected() int {
     <td rowspan="3"><img height="320" src="https://media.giphy.com/media/l3vRfwrddpKT9ywIU/giphy.gif" width="568" alt="?"/></td>
   </tr> 
   <tr>
-    <td>Race conditions?</td>
+    <td>No race conditions?</td>
     <td><img height="40" src="images/yes.png" width="40" alt="?"/></td> 
   </tr>
   <tr>

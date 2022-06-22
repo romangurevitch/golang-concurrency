@@ -12,6 +12,7 @@ func NonStoppingGoRoutine() int {
 
 	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		for {
 			inlinePrint(c.Inc())
 		}
@@ -43,7 +44,7 @@ func NonStoppingGoRoutine() int {
     <td rowspan="3"><img height="320" src="https://media.giphy.com/media/lTrbUqQJCif7NfbXoo/giphy.gif" width="568" alt="?"/></td>
   </tr> 
   <tr>
-    <td>Race conditions?</td>
+    <td>No race conditions?</td>
     <td><img height="40" src="images/yes.png" width="40" alt="?"/></td> 
   </tr>
   <tr>

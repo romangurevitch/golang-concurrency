@@ -11,6 +11,10 @@
 * [Simple counter](docs/counter/simple.md)
 * [Safe counter](docs/counter/safe.md)
 
+### Race detection flag
+
+* [Race detection](docs/race/race.md)
+
 ### Examples
 
 * [1. Let's start with a simple example](docs/example_1.md)

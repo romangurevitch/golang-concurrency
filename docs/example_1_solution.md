@@ -40,7 +40,7 @@ func UnexpectedResult() int {
     <td rowspan="3"><img height="360" src="https://media.giphy.com/media/l9TnPq7MBol6E9nn3N/giphy.gif" width="360" alt="?"/></td>
   </tr> 
   <tr>
-    <td>Race conditions?</td>
+    <td>No race conditions?</td>
     <td><img height="40" src="images/no.png" width="40" alt="?"/></td> 
   </tr>
   <tr>
