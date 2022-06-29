@@ -45,7 +45,7 @@ func UnexpectedResult() int {
   </tr>
   <tr>
     <td>Error handling and gracefully shutdown?</td>
-    <td><img height="40" src="images/question.svg" width="40" alt="?"/></td>
+    <td><img height="40" src="images/no.png" width="40" alt="?"/></td>
   </tr>
 </tbody>
 </table> 
