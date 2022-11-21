@@ -66,4 +66,4 @@ func NonStoppingGoRoutineCorrectShutdownBonus() (int, bool) {
 </tbody>
 </table> 
 
-[Back to README.md](../README.md)
+[Questions?](questions.md)
