@@ -10,6 +10,13 @@ import (
 	"github.com/romangurevitch/golang-concurrency/internal/concurrency/counter"
 )
 
+var reset = "\033[0m"
+var red = "\033[31m"
+var green = "\033[32m"
+var yellow = "\033[33m"
+var white = "\033[97m"
+var cursorBack = "\033[G\033[K"
+
 // UnexpectedResult what did you expect?
 func UnexpectedResult() int {
 	c := &counter.SimpleCounter{}
@@ -113,7 +120,7 @@ func NonStoppingGoRoutine() int {
 }
 
 // NonStoppingGoRoutineWithShutdown is it good enough though?
-func NonStoppingGoRoutineWithShutdown() int {
+func NonStoppingGoRoutineWithShutdown() (int, bool) {
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
 
@@ -128,15 +135,12 @@ func NonStoppingGoRoutineWithShutdown() int {
 		}
 	}()
 
-	fmt.Println("Working, press ^C to stop")
 	<-sigs
-
-	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
-	return c.Count()
+	return c.Count(), gracefulShutdown
 }
 
 // NonStoppingGoRoutineCorrectShutdown yes?
-func NonStoppingGoRoutineCorrectShutdown() int {
+func NonStoppingGoRoutineCorrectShutdown() (int, bool) {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
@@ -160,15 +164,12 @@ func NonStoppingGoRoutineCorrectShutdown() int {
 		}
 	}()
 
-	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
-
-	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
-	return c.Count()
+	return c.Count(), gracefulShutdown
 }
 
 // NonStoppingGoRoutineCorrectShutdownBonus tiny change?
-func NonStoppingGoRoutineCorrectShutdownBonus() int {
+func NonStoppingGoRoutineCorrectShutdownBonus() (int, bool) {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
@@ -192,13 +193,10 @@ func NonStoppingGoRoutineCorrectShutdownBonus() int {
 		}
 	}()
 
-	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
-
-	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
-	return c.Count()
+	return c.Count(), gracefulShutdown
 }
 
 func inlinePrint(result int) {
-	fmt.Print("\033[G\033[K", result)
+	fmt.Print(yellow, cursorBack, result, reset)
 }

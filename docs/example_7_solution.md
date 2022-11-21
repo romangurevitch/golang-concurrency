@@ -6,7 +6,7 @@
 package concurrency
 
 // NonStoppingGoRoutineCorrectShutdown yes?
-func NonStoppingGoRoutineCorrectShutdown() int {
+func NonStoppingGoRoutineCorrectShutdown() (int, bool) {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
@@ -30,20 +30,17 @@ func NonStoppingGoRoutineCorrectShutdown() int {
 		}
 	}()
 
-	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
-
-	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
-	return c.Count()
+	return c.Count(), gracefulShutdown
 }
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" -race 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdown$" -race 
 ```
 
 <table>

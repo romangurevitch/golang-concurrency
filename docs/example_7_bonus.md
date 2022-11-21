@@ -6,7 +6,7 @@
 package concurrency
 
 // NonStoppingGoRoutineCorrectShutdownBonus tiny change?
-func NonStoppingGoRoutineCorrectShutdownBonus() int {
+func NonStoppingGoRoutineCorrectShutdownBonus() (int, bool) {
 	wg := sync.WaitGroup{}
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
@@ -30,20 +30,17 @@ func NonStoppingGoRoutineCorrectShutdownBonus() int {
 		}
 	}()
 
-	fmt.Println("Working, press ^C to stop")
 	wg.Wait()
-
-	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
-	return c.Count()
+	return c.Count(), gracefulShutdown
 }
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdownBonus$" 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdownBonus$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdownBonus$" -race 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineCorrectShutdownBonus$" -race 
 ```
 
 <table>

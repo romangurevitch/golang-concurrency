@@ -24,11 +24,11 @@ func NonStoppingGoRoutine() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutine$" 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutine$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutine$" -race 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutine$" -race 
 ```
 
 <table>

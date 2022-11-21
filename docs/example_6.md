@@ -6,7 +6,7 @@
 package concurrency
 
 // NonStoppingGoRoutineWithShutdown is it good enough though?
-func NonStoppingGoRoutineWithShutdown() int {
+func NonStoppingGoRoutineWithShutdown() (int, bool) {
 	c := &counter.SafeCounter{}
 	gracefulShutdown := false
 
@@ -21,20 +21,17 @@ func NonStoppingGoRoutineWithShutdown() int {
 		}
 	}()
 
-	fmt.Println("Working, press ^C to stop")
 	<-sigs
-
-	fmt.Printf("\nDid the go function shutdown gracefully? %v\n\n", gracefulShutdown)
-	return c.Count()
+	return c.Count(), gracefulShutdown
 }
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineWithShutdown$" 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineWithShutdown$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineWithShutdown$" -race 
+ clear; go test ../internal/concurrency -v -count=1 -run="NonStoppingGoRoutineWithShutdown$" -race 
 ```
 
 <table>

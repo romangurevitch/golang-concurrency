@@ -24,11 +24,11 @@ func UnexpectedResultFix() int {
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="UnexpectedResultFix$" 
+ clear; go test ../internal/concurrency -v -count=1 -run="UnexpectedResultFix$" 
 ```
 
 ```bash
- go test ../internal/concurrency -v -count=1 -run="UnexpectedResultFix$" -race 
+ clear; go test ../internal/concurrency -v -count=1 -run="UnexpectedResultFix$" -race 
 ```
 
 <table>
